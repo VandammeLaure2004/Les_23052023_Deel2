@@ -24,7 +24,12 @@ namespace PeopleManager.Ui.Mvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            //var people = _dbContext.People.ToList();
+            //ViewBag.People = people;
+            //ViewData["People"] = people; // dit is hetzelfde als de viewBag
+
+
+            return CreateEditView("Create");
         }
 
         [HttpPost]
@@ -33,7 +38,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(vehicle);
+                return CreateEditView("Create", vehicle);
             }
 
             _dbContext.Vehicles.Add(vehicle);
@@ -53,7 +58,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(vehicle);
+            return CreateEditView("Edit", vehicle);
         }
 
         [HttpPost]
@@ -62,7 +67,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(vehicle);
+                return CreateEditView("Edit", vehicle);
             }
 
             var dbVehicle = _dbContext.Vehicles.Find(id);
@@ -80,6 +85,18 @@ namespace PeopleManager.Ui.Mvc.Controllers
 
             return RedirectToAction("Index");
         }
+        
+        private IActionResult CreateEditView(string viewName, Vehicle? vehicle = null)
+        {
+            var people = _dbContext.People
+                .OrderBy(p => p.FirstName)
+                .ThenBy(p => p.LastName)
+                .ToList();
+            ViewBag.People = people;
+            return View(viewName, vehicle);
+        }
+
+
 
         [HttpGet]
         public IActionResult Delete(int id)
