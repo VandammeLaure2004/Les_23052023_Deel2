@@ -1,0 +1,19 @@
+﻿@model Vehicle
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<div class="mb-3">
+    <label asp-for="LicensePlate" class="form-label"></label>
+    <input asp-for="LicensePlate" class="form-control" />
+    <span asp-validation-for="LicensePlate"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Brand" class="form-label">Last Name</label>
+    <input asp-for="Brand" class="form-control" />
+    <span asp-validation-for="Brand"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Type" class="form-label"></label>
+    <input asp-for="Type" class="form-control" />
+    <span asp-validation-for="Type"></span>
+</div>
